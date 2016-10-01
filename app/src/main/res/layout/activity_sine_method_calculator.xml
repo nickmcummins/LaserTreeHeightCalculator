@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TableLayout
+        android:id="@+id/activity_sine_method_calculator"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/measuring_tree_heights_sine"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="app.monumentaltrees.com.lasertreeheightcalculator.SineMethodCalculator">
+
+        <TableRow android:layout_marginTop="70dp">
+
+            <EditText
+                android:id="@+id/distanceToTop"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="80dp"
+                android:inputType="numberDecimal" />
+
+            <Spinner
+                android:id="@+id/unitsToTop"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-80dp"
+                android:layout_marginRight="100dp"
+                android:entries="@array/units_dropdown_array" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="60dp">
+
+            <EditText
+                android:id="@+id/distanceToBase"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:ems="4"
+                android:inputType="numberDecimal" />
+
+            <Spinner
+                android:id="@+id/unitsToBase"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="130dp"
+                android:entries="@array/units_dropdown_array" />
+        </TableRow>
+
+        <TextView
+            android:id="@+id/calculatedHeightLabel"
+            android:layout_width="match_parent"
+            android:layout_marginTop="100dp"
+            android:text="@string/the_height_of_the_tree_is"
+            android:textAlignment="center"
+            />
+        <TextView
+            android:id="@+id/calculatedHeight"
+            android:layout_width="match_parent"
+            android:textAlignment="center" />
+        <Button
+            android:id="@+id/button"
+            android:text="Calculate Height" />
+
+
+    </TableLayout>
+
+</ScrollView>
+
