@@ -52,12 +52,19 @@
             android:textSize="18dp"
             android:textAlignment="center" />
 
+
         <TextView
             android:id="@+id/calculatedHeight"
             android:layout_width="match_parent"
             android:textSize="24dp"
             android:textStyle="bold"
             android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/currentLocation"
+            android:textSize="18dp"
+            android:textAlignment="center"
+            android:text="@string/coordinates" />
 
         <Button
             android:id="@+id/button"
