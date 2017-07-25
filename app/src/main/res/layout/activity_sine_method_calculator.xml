@@ -67,8 +67,11 @@
             android:text="@string/coordinates" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/calculateHeightButton"
             android:text="Calculate Height" />
+        <Button
+            android:id="@+id/saveTreeButton"
+            android:text="Save this measurement" />
 
 
     </TableLayout>

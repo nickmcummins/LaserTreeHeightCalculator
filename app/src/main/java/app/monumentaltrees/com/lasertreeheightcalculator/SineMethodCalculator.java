@@ -22,6 +22,9 @@ import com.google.android.gms.location.LocationServices;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
+
+import app.monumentaltrees.com.lasertreeheightcalculator.storage.FileStorage;
 
 import static com.google.android.gms.location.LocationServices.FusedLocationApi;
 
@@ -42,11 +45,19 @@ public class SineMethodCalculator extends AppCompatActivity implements
     String mLastUpdateTime;
 
     Button calculateHeightBtn;
+    Button saveTreeBtn;
     EditText distanceToHeight;
     EditText distanceToBase;
     Spinner unitsToBase;
     TextView calculatedHeight;
     TextView currentLocation;
+
+    double distanceToHeightNumeric;
+    double distanceToBaseNumeric;
+    double calculatedHeightNumeric;
+
+    double lat;
+    double lng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,34 +75,43 @@ public class SineMethodCalculator extends AppCompatActivity implements
 
         setContentView(R.layout.activity_sine_method_calculator);
 
-        distanceToHeight = (EditText) findViewById(R.id.distanceToTop);
+        distanceToHeight = findViewById(R.id.distanceToTop);
 
-        distanceToBase = (EditText) findViewById(R.id.distanceToBase);
-        unitsToBase = (Spinner) findViewById(R.id.unitsToBase);
+        distanceToBase = findViewById(R.id.distanceToBase);
+        unitsToBase = findViewById(R.id.unitsToBase);
 
-        calculatedHeight = (TextView) findViewById(R.id.calculatedHeight);
-        calculateHeightBtn = (Button) findViewById(R.id.button);
+        calculatedHeight = findViewById(R.id.calculatedHeight);
+        calculateHeightBtn = findViewById(R.id.calculateHeightButton);
+        saveTreeBtn = findViewById(R.id.saveTreeButton);
 
-        currentLocation = (TextView) findViewById(R.id.currentLocation);
+        currentLocation = findViewById(R.id.currentLocation);
 
         calculateHeightBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double distanceToHeightNumeric = parseEditText(distanceToHeight, unitsToBase);
-                double distanceToBaseNumeric = parseEditText(distanceToBase, unitsToBase);
+                distanceToHeightNumeric = parseEditText(distanceToHeight, unitsToBase);
+                distanceToBaseNumeric = parseEditText(distanceToBase, unitsToBase);
 
-                double calculatedHeightNumeric = calculateHeight(distanceToHeightNumeric, distanceToBaseNumeric);
+                calculatedHeightNumeric = calculateHeight(distanceToHeightNumeric, distanceToBaseNumeric);
+                FileStorage.writeToFile(String.valueOf(calculatedHeightNumeric) + "\n");
                 calculatedHeight.setText(String.format("%s %s",
                         calculatedHeightNumeric, DEFAULT_UNITS));
 
                 if (null != mCurrentLocation) {
-                    String lat = String.valueOf(mCurrentLocation.getLatitude());
-                    String lng = String.valueOf(mCurrentLocation.getLongitude());
-                    currentLocation.setText(String.format("%s %s, %s", "Coordinates:", lat, lng));
+                    lat = mCurrentLocation.getLatitude();
+                    lng = mCurrentLocation.getLongitude();
+                    currentLocation.setText(String.format(Locale.getDefault(), "%s %f, %f", "Coordinates:", lat, lng));
                 }
             }
-                                              }
-        );
+        });
+        saveTreeBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+                FileStorage.addTree(lat, lng, distanceToHeightNumeric, distanceToBaseNumeric, calculatedHeightNumeric);
+            }
+        });
+
     }
 
 
@@ -182,4 +202,6 @@ public class SineMethodCalculator extends AppCompatActivity implements
             startLocationUpdates();
         }
     }
+
+
 }
