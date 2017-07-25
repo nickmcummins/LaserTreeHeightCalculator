@@ -2,9 +2,12 @@
 Calculate tree heights from laser rangefinder measurements
 
 # Screenshot 
-![Laser Tree Height Calculator Screenshot](https://www.nickmcummins.com/images/laser-tree-height-calculator-screenshot.png)
+![Laser Tree Height Calculator Screenshot](https://raw.githubusercontent.com/nickmcummins/LaserTreeHeightCalculator/master/laser-tree-height-calculator-screenshot.png)
 
 # Release Notes
+
+## 1.0.3
+* Ability to persist measurements including current location
 
 ## 1.0.2
 * Enabled ability to move app to external storage
