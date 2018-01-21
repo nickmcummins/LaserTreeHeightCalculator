@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".Calculator">
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="1.0"
+        android:background="@mipmap/measuring_tree_heights_right_triangle" />
+
+    <EditText
+        android:id="@+id/distanceToTop"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:textSize="15dp"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/distanceToBase"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/distanceToTop"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="40dp"
+        android:textSize="15dp"
+        android:inputType="numberDecimal" />
+
+    <Spinner
+        android:id="@+id/unitsToBase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/distanceToBase"
+        android:layout_toRightOf="@+id/distanceToBase"
+        android:entries="@array/units_dropdown_array" />
+
+    <TextView
+        android:id="@+id/calculatedHeightLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/distanceToBase"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="The height of the tree is"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/calculatedHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/calculatedHeightLabel"
+        android:layout_centerHorizontal="true"
+        android:textSize="22dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/currentLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/calculatedHeight"
+        android:layout_centerHorizontal="true"
+        android:text="Coordinates:"
+        android:textSize="14dp" />
+
+    <Button
+        android:id="@+id/calculateHeightButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/currentLocation"
+        android:layout_centerHorizontal="true"
+        android:text="Calculate Height" />
+
+
+</RelativeLayout>

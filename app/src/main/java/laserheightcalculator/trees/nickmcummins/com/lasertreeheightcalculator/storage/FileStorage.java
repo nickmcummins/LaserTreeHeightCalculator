@@ -1,13 +1,16 @@
-package app.monumentaltrees.com.lasertreeheightcalculator.storage;
+package laserheightcalculator.trees.nickmcummins.com.lasertreeheightcalculator.storage;
 
 import android.os.Environment;
 import android.util.Log;
 
 import org.apache.commons.io.FileUtils;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 public class FileStorage {
@@ -20,8 +23,9 @@ public class FileStorage {
             double distanceToBase,
             double calculatedHeight)
     {
-        String line = String.format(Locale.getDefault(), "%f,%f\t%f\t%f,%f\n",
-                latitude, longitude, calculatedHeight, distanceToBase, distanceToHeight);
+        String dateString = new SimpleDateFormat("EEE MMM dd hh:mm:ss yyyy").format(new Date());
+        String line = String.format(Locale.getDefault(), "%s\t(%f,%f)\t%f\t%f,%f\n",
+                dateString, latitude, longitude, calculatedHeight, distanceToBase, distanceToHeight);
         writeToFile(line);
 
     }
@@ -44,6 +48,4 @@ public class FileStorage {
         }
         return file;
     }
-
-
 }

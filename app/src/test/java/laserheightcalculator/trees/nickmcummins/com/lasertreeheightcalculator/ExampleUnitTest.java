@@ -1,4 +1,4 @@
-package app.monumentaltrees.com.lasertreeheightcalculator;
+package laserheightcalculator.trees.nickmcummins.com.lasertreeheightcalculator;
 
 import org.junit.Test;
 

@@ -6,6 +6,12 @@ Calculate tree heights from laser rangefinder measurements
 
 # Release Notes
 
+## 1.0.4
+* UI improvements
+* Added timestamp to tree records
+* Auto-save
+* Renaming classes and packages to reflect right angle method being used and for complete sine method to be added in the future
+
 ## 1.0.3
 * Ability to persist measurements including current location
 
