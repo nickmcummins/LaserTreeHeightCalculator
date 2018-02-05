@@ -22,7 +22,7 @@ import java.util.Locale;
 import laserheightcalculator.trees.nickmcummins.com.lasertreeheightcalculator.storage.FileStorage;
 
 
-public class Calculator extends AppCompatActivity {
+public class TangentMethodCalculator extends AppCompatActivity {
 
     private static final double METERS_TO_FEET = 3.28084;
     private static final String DEFAULT_UNITS = "ft";
@@ -50,7 +50,7 @@ public class Calculator extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calculator);
+        setContentView(R.layout.tangent_method_calculator_activity);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         createLocationRequest();
