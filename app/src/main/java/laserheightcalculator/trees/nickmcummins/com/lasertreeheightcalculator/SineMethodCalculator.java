@@ -1,12 +1,11 @@
 package laserheightcalculator.trees.nickmcummins.com.lasertreeheightcalculator;
 
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +15,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,8 +23,7 @@ import java.util.Locale;
 
 import laserheightcalculator.trees.nickmcummins.com.lasertreeheightcalculator.storage.FileStorage;
 
-
-public class TangentMethodCalculator extends AppCompatActivity {
+public class SineMethodCalculator extends AppCompatActivity {
 
     private static final double METERS_TO_FEET = 3.28084;
     private static final String DEFAULT_UNITS = "ft";
@@ -38,13 +35,17 @@ public class TangentMethodCalculator extends AppCompatActivity {
 
     Button calculateHeightBtn;
     EditText distanceToHeight;
-    EditText distanceToBase;
-    Spinner unitsToBase;
+    EditText angleToHeight;
+    EditText distanceToBottom;
+    EditText angleToBottom;
+    Spinner unitsToBottom;
     TextView calculatedHeight;
     TextView currentLocation;
 
     double distanceToHeightNumeric;
-    double distanceToBaseNumeric;
+    double angleToHeightNumeric;
+    double distanceToBottomNumeric;
+    double angleToBottomNumeric;
     double calculatedHeightNumeric;
 
     double lat;
@@ -54,7 +55,7 @@ public class TangentMethodCalculator extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tangent_method_calculator_activity);
+        setContentView(R.layout.sine_method_calculator_activity);
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -65,9 +66,11 @@ public class TangentMethodCalculator extends AppCompatActivity {
         createLocationRequest();
 
         distanceToHeight = findViewById(R.id.distanceToTop);
+        angleToHeight = findViewById(R.id.angleToTop);
 
-        distanceToBase = findViewById(R.id.distanceToBase);
-        unitsToBase = findViewById(R.id.unitsToBase);
+        distanceToBottom = findViewById(R.id.distanceToBottom);
+        unitsToBottom = findViewById(R.id.unitsToBottom);
+        angleToBottom = findViewById(R.id.angleToBottom);
 
         calculatedHeight = findViewById(R.id.calculatedHeight);
         calculateHeightBtn = findViewById(R.id.calculateHeightButton);
@@ -77,10 +80,16 @@ public class TangentMethodCalculator extends AppCompatActivity {
         calculateHeightBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                distanceToHeightNumeric = parseEditText(distanceToHeight, unitsToBase);
-                distanceToBaseNumeric = parseEditText(distanceToBase, unitsToBase);
+                distanceToHeightNumeric = parseEditText(distanceToHeight, unitsToBottom);
+                angleToHeightNumeric = Double.parseDouble(angleToHeight.getText().toString());
+                distanceToBottomNumeric = parseEditText(distanceToBottom, unitsToBottom);
+                angleToBottomNumeric = Double.parseDouble(angleToBottom.getText().toString());
 
-                calculatedHeightNumeric = calculateHeight(distanceToHeightNumeric, distanceToBaseNumeric);
+                calculatedHeightNumeric = calculateHeight(
+                        distanceToHeightNumeric,
+                        angleToHeightNumeric,
+                        distanceToBottomNumeric,
+                        angleToBottomNumeric);
                 FileStorage.writeToFile(String.valueOf(calculatedHeightNumeric) + "\n");
                 calculatedHeight.setText(String.format("%s %s",
                         calculatedHeightNumeric, DEFAULT_UNITS));
@@ -89,7 +98,7 @@ public class TangentMethodCalculator extends AppCompatActivity {
                     lat = mCurrentLocation.getLatitude();
                     lng = mCurrentLocation.getLongitude();
                     currentLocation.setText(String.format(Locale.getDefault(), "%s %f, %f", "Coordinates:", lat, lng));
-                    FileStorage.addTree(lat, lng, distanceToHeightNumeric, distanceToBaseNumeric, calculatedHeightNumeric);
+                    FileStorage.addTree(lat, lng, distanceToHeightNumeric, distanceToBottomNumeric, calculatedHeightNumeric);
                 }
             }
         });
@@ -111,7 +120,7 @@ public class TangentMethodCalculator extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.switch_mode) {
-            Intent intent = new Intent(this, SineMethodCalculator.class);
+            Intent intent = new Intent(this, TangentMethodCalculator.class);
             startActivity(intent);
             return true;
         }
@@ -146,9 +155,9 @@ public class TangentMethodCalculator extends AppCompatActivity {
     }
 
 
-    private double parseEditText(EditText editText, Spinner unitsToBase) {
+    private double parseEditText(EditText editText, Spinner unitsToBottom) {
         double value;
-        double unitConversionFactor = unitsToBase.getSelectedItem().toString().equals("m") ? METERS_TO_FEET : 1.0;
+        double unitConversionFactor = unitsToBottom.getSelectedItem().toString().equals("m") ? METERS_TO_FEET : 1.0;
         try {
             value = Double.parseDouble(editText.getText().toString());
         } catch (NumberFormatException e) {
@@ -157,8 +166,14 @@ public class TangentMethodCalculator extends AppCompatActivity {
         return value * unitConversionFactor;
     }
 
-    private double calculateHeight(double distanceToHeight, double distanceToBase) {
-        return Math.sqrt(Math.pow(distanceToHeight, 2.0) - Math.pow(distanceToBase, 2.0));
+    private double calculateHeight(
+            double distanceToHeight,
+            double angleToHeight,
+            double distanceToBottom,
+            double angleToBottom) {
+        double A = Math.sin(Math.toRadians(angleToHeight)) * distanceToHeight;
+        double B = Math.sin(Math.toRadians(angleToBottom)) * distanceToBottom;
+        return A + B;
     }
 
 }

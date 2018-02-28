@@ -6,6 +6,9 @@ Calculate tree heights from laser rangefinder measurements
 
 # Release Notes
 
+## 1.1.0
+* Added actual Sine Method Calculator and ability to toggle between it and Tangent Method
+
 ## 1.0.4
 * UI improvements
 * Added timestamp to tree records

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
-    tools:context=".TangentMethodCalculator">
+    tools:context=".SineMethodCalculator">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -16,13 +16,14 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alpha="1.0"
         android:layout_marginTop="55dp"
-        android:background="@mipmap/measuring_tree_heights_right_triangle" />
+        android:background="@mipmap/measuring_tree_heights_sine_triangle" />
 
     <EditText
         android:id="@+id/distanceToTop"
@@ -30,35 +31,53 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="65dp"
         android:textSize="15dp"
         android:inputType="numberDecimal" />
 
     <EditText
-        android:id="@+id/distanceToBase"
+        android:id="@+id/angleToTop"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:layout_alignBaseline="@+id/distanceToTop"
+        android:layout_toRightOf="@id/distanceToTop"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/distanceToBottom"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/distanceToTop"
-        android:layout_marginLeft="200dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="75dp"
         android:textSize="15dp"
         android:inputType="numberDecimal" />
 
     <Spinner
-        android:id="@+id/unitsToBase"
+        android:id="@+id/unitsToBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/distanceToBase"
-        android:layout_toRightOf="@+id/distanceToBase"
+        android:layout_alignBaseline="@+id/distanceToBottom"
+        android:layout_toRightOf="@+id/distanceToBottom"
         android:entries="@array/units_dropdown_array" />
+
+    <EditText
+        android:id="@+id/angleToBottom"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/distanceToBottom"
+        android:textSize="15dp"
+        android:layout_toRightOf="@id/unitsToBottom"
+        android:inputType="numberDecimal" />
 
     <TextView
         android:id="@+id/calculatedHeightLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/distanceToBase"
+        android:layout_below="@+id/distanceToBottom"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="22dp"
         android:text="@string/the_height_of_the_tree_is"
         android:textSize="18dp" />
 
@@ -87,6 +106,5 @@
         android:layout_below="@id/currentLocation"
         android:layout_centerHorizontal="true"
         android:text="@string/calculate_height" />
-
 
 </RelativeLayout>

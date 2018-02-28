@@ -2,6 +2,9 @@
     <string name="app_name">Laser Tree Height Calculator</string>
     <string name="the_height_of_the_tree_is">The height of the tree is</string>
     <string name="coordinates">Coordinates:</string>
+    <string name="calculate_height">Calculate Height</string>
+
+    <string name="action_settings">Settings</string>
 
     <string-array name="units_dropdown_array">
         <item>m</item>
